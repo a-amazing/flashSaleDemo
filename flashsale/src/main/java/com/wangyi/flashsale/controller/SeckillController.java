@@ -18,7 +18,7 @@ public class SeckillController {
     @Autowired
     private FlashSaleGoodService flashSaleGoodService;
 
-    @PostMapping
+    @PostMapping("/seckill1")
     public Result startSeckillDBOcc(@RequestBody @Validated SeckillReq seckillReq){
         return flashSaleGoodService.startSeckillDBOcc(seckillReq);
     }
