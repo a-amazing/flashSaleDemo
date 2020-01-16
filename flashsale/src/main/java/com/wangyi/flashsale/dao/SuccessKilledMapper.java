@@ -17,4 +17,8 @@ public interface SuccessKilledMapper {
     int updateByPrimaryKeySelective(SuccessKilled record);
 
     int updateByPrimaryKey(SuccessKilled record);
+
+    int countBySeckillId(Long seckillId);
+
+    int deleteBySeckillId(Long seckiiId);
 }

@@ -79,4 +79,10 @@
     where seckill_id = #{seckillId,jdbcType=BIGINT}
       and user_id = #{userId,jdbcType=BIGINT}
   </update>
+  <select id="countBySeckillId" parameterType="long" resultType="int">
+    select count(*) from success_killed where seckill_id = #{seckillId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteBySeckillId" parameterType="long">
+    delete from success_killed where seckill_id = #{seckillId,jdbcType=BIGINT}
+  </delete>
 </mapper>

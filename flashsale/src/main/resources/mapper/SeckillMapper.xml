@@ -19,6 +19,11 @@
         from seckill
         where seckill_id = #{seckillId,jdbcType=BIGINT}
     </select>
+    <select id="getAllSeckillList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from seckill
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from seckill
     where seckill_id = #{seckillId,jdbcType=BIGINT}

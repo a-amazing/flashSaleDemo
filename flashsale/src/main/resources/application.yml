@@ -27,8 +27,12 @@ spring:
       time-between-eviction-runs-millis: 60000
       test-while-idle: true
 
+  #redis配置
+  redis:
+    url:
+    password:
+
 #mybatis配置
 mybatis:
   mapper-locations: mapper
 
-#redis配置
