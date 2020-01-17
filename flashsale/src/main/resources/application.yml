@@ -6,11 +6,10 @@ server:
 
 #数据库配置
 spring:
+  profiles:
+    active: wx
   datasource:
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/flashSale?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true
-      username: root
-      password: root
       filters: stat,wall,logback
       filter:
         stat:
@@ -27,12 +26,6 @@ spring:
       time-between-eviction-runs-millis: 60000
       test-while-idle: true
 
-  #redis配置
-  redis:
-    url:
-    password:
-
 #mybatis配置
 mybatis:
   mapper-locations: mapper
-
