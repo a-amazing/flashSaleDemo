@@ -40,4 +40,11 @@ public interface FlashSaleGoodService {
      * @return
      */
     Result startSeckillDBOcc(SeckillReq seckillReq);
+
+    /**
+     * jvm ReentrantLock实现秒杀
+     * @param seckillReq
+     * @return
+     */
+    Result startSeckillByJvmLock(SeckillReq seckillReq);
 }
