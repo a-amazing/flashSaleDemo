@@ -1,11 +1,11 @@
 spring:
   datasource:
     druid:
-      url: jdbc:mysql://127.0.0.1:3306/flashSale?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true
+      url: jdbc:mysql://192.168.1.108:33306/flashSale?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=true
       username: root
       password: root
 
 #redis配置
   redis:
-    url:
+    url: redis://192.168.1.108:6379/
     password:

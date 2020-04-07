@@ -67,4 +67,9 @@ public class FlashSaleGoodServiceImpl implements FlashSaleGoodService {
         }
         return Result.fail(HttpStatus.BAD_REQUEST, SeckillStatEnum.MUCH);
     }
+
+    @Override
+    public Result startSeckillByJvmLock(SeckillReq seckillReq) {
+        return null;
+    }
 }
