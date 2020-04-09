@@ -8,4 +8,4 @@ spring:
 #redis配置
   redis:
     url: redis://192.168.1.108:6379/
-    password:
+    #password:

@@ -1,7 +1,6 @@
 package com.wangyi.flashsale.interceptor;
 
 import com.wangyi.flashsale.common.limiter.Limiter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LimitInterceptor implements HandlerInterceptor {
 
-    @Autowired
     private Limiter limiter;
 
     @Override
@@ -25,5 +23,13 @@ public class LimitInterceptor implements HandlerInterceptor {
         HandlerMethod method = (HandlerMethod)handler;
         //由限流器判断是否可以进入方法
         return limiter.pass();
+    }
+
+    public Limiter getLimiter() {
+        return limiter;
+    }
+
+    public void setLimiter(Limiter limiter) {
+        this.limiter = limiter;
     }
 }

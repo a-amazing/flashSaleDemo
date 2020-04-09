@@ -3,6 +3,7 @@ package com.wangyi.flashsale.entity.dataobject;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -11,7 +12,7 @@ import java.sql.Timestamp;
  */
 @Data
 @Accessors(chain = true)
-public class FlashSaleGood {
+public class FlashSaleGood implements Serializable {
     private long seckillId;
     private String name;
     private int number;

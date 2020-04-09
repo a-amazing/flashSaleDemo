@@ -1,6 +1,8 @@
 package com.wangyi.flashsale.entity.dataobject;
 
-public class SuccessKilledKey {
+import java.io.Serializable;
+
+public class SuccessKilledKey implements Serializable {
     private Long seckillId;
     private Long userId;
     public Long getSeckillId() {

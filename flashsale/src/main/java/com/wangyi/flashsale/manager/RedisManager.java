@@ -6,4 +6,5 @@ package com.wangyi.flashsale.manager;
  * @Description:redis交互管理类
  */
 public class RedisManager{
+
 }

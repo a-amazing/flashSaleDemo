@@ -3,11 +3,10 @@ server:
   port: 8000
   servlet:
     application-display-name: secKill
-
 #数据库配置
 spring:
   profiles:
-    active: wx
+    active: dev
   datasource:
     druid:
       filters: stat,wall,logback
@@ -25,7 +24,20 @@ spring:
       min-evictable-idle-time-millis: 300000
       time-between-eviction-runs-millis: 60000
       test-while-idle: true
-    hikari:
+  redis:
+    jedis:
+      pool:
+        max-active: 4
+        max-idle: 8
+        max-wait: 100
+        min-idle: 2
+#redis
 #mybatis配置
 mybatis:
   mapper-locations: mapper
+#pagehelper配置
+pagehelper:
+  dialect: mysql
+  reasonable: true
+  row-bounds-with-count: true
+  offset-as-page-num: true
