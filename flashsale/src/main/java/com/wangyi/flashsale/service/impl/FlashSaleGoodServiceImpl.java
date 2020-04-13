@@ -10,11 +10,12 @@ import com.wangyi.flashsale.manager.MQManager;
 import com.wangyi.flashsale.service.FlashSaleGoodService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author:wangyi
@@ -29,6 +30,8 @@ public class FlashSaleGoodServiceImpl implements FlashSaleGoodService {
     private SuccessKilledMapper successKilledMapper;
     @Autowired
     private MQManager mqManager;
+
+    private ReentrantLock lock = new ReentrantLock();
 
     @Override
     public List<Seckill> getSeckillList() {
@@ -65,11 +68,53 @@ public class FlashSaleGoodServiceImpl implements FlashSaleGoodService {
             mqManager.sendMessage();
             return Result.success();
         }
-        return Result.fail(HttpStatus.BAD_REQUEST, SeckillStatEnum.MUCH);
+        return Result.fail(SeckillStatEnum.MUCH);
     }
 
+    /**
+     * 数据库悲观锁实现秒杀,性能较差!
+     *
+     * @param seckillReq
+     * @return
+     */
+    @Override
+    public Result startSeckillDBXLock(SeckillReq seckillReq) {
+        Seckill good = seckillMapper.XLockByPrimaryKey(seckillReq.getSeckillId());
+        if (good.getNumber() > seckillReq.getCount()) {
+            good.setNumber(good.getNumber() - seckillReq.getCount());
+            seckillMapper.updateByPrimaryKey(good);
+            return Result.success();
+        }
+        return Result.fail(SeckillStatEnum.MUCH);
+    }
+
+    /**
+     * 使用ReEntrantLock来进行秒杀,但是因为真实事务提交晚于解锁,
+     * 所以有可能出现超卖
+     *
+     * @param seckillReq
+     * @return
+     */
     @Override
     public Result startSeckillByJvmLock(SeckillReq seckillReq) {
-        return null;
+        boolean flag = false;
+        try {
+            flag = lock.tryLock(500, TimeUnit.MILLISECONDS);
+            if (flag) {
+                Seckill good = this.getById(seckillReq.getSeckillId());
+                if (good.getNumber() > seckillReq.getCount()) {
+                    good.setNumber(good.getNumber() - seckillReq.getCount());
+                    seckillMapper.updateByPrimaryKey(good);
+                    return Result.success();
+                }
+            }
+            return Result.fail(SeckillStatEnum.MUCH);
+        } catch (InterruptedException e) {
+            return Result.fail(SeckillStatEnum.INNER_ERROR);
+        } finally {
+            if (flag) {
+                lock.unlock();
+            }
+        }
     }
 }

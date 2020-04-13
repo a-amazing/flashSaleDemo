@@ -42,6 +42,12 @@ public interface FlashSaleGoodService {
     Result startSeckillDBOcc(SeckillReq seckillReq);
 
     /**
+     * 数据库悲观锁实现秒杀
+     * @param seckillReq
+     * @return
+     */
+    Result startSeckillDBXLock(SeckillReq seckillReq);
+    /**
      * jvm ReentrantLock实现秒杀
      * @param seckillReq
      * @return

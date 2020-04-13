@@ -1,8 +1,8 @@
-package com.wangyi.flashsale.dao;
+package com.wangyi.flashsale.util.lock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundValueOperations;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -15,8 +15,14 @@ import java.util.concurrent.TimeUnit;
  */
 @Repository
 public class RedisLock {
+    /**
+     * 使用RedisTemplate在异构语言微服务存在的情况下,可能会因为
+     * JDK序列化的问题,导致其余微服务无法解析缓存中的数据!
+     * 推荐使用StringRedisTemplate
+     */
     @Autowired
-    private RedisTemplate<String, String> lockManager;
+    private StringRedisTemplate lockManager;
+
 
     /**
      * 使用特定的key和value,指定该锁的有效时间,在不存在该key的情况下加锁

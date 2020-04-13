@@ -23,4 +23,6 @@ public interface SeckillMapper {
     int updateByPrimaryKey(Seckill record);
 
     int decreaceByPrimaryKeyWithCount(@Param("seckillId") Long seckillId, @Param("count") int count);
+
+    Seckill XLockByPrimaryKey(@Param(("seckillId"))Long seckillId);
 }

@@ -125,4 +125,9 @@
       where seckill_id = #{seckillId}
       and number > #{count}
   </update>
+    <select id="XLockByPrimaryKey">
+        select
+        <include refid="Base_Column_List"/>
+        from seckill WHERE  seckill_id = #{seckillId} for update
+    </select>
 </mapper>

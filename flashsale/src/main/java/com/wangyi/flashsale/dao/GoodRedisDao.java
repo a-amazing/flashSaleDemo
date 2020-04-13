@@ -1,8 +1,7 @@
 package com.wangyi.flashsale.dao;
 
-import com.wangyi.flashsale.entity.dataobject.FlashSaleGood;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 /**
  * @author:wangyi
@@ -10,8 +9,11 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 public class GoodRedisDao {
 
+    /**
+     * 在纯java栈的情况下,可以使用redisTemplate
+     */
     @Autowired
-    private RedisTemplate<String, FlashSaleGood> redisTemplate;
+    private StringRedisTemplate redisTemplate;
 
 
 }

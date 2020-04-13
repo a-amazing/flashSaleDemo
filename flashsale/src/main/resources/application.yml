@@ -41,3 +41,6 @@ pagehelper:
   reasonable: true
   row-bounds-with-count: true
   offset-as-page-num: true
+#zookeeper配置
+zk:
+  address: localhost:2181
